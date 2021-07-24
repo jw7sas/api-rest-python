@@ -1,110 +1,140 @@
 # imports
-import json
-from app.base_service import BaseService
+import sqlite3
+# Modulos de app
+from app import properties as p
 from app.models import ResponseModel
-from products.models import CategoryModel
-from app import tables as t, properties as p
+from app.database import db, Category, Product
 
-class CategoryService(BaseService):
+""" Clase de servicio de categorias DB. """
+class CategoryService():
     def __init__(self):
         super().__init__()
+        self.message = None
+        self.error = False
         
     def create(self, category):
-        query = f"INSERT INTO {t.TCATEGORY} ({t.TCATEGORY_NAME}, {t.TCATEGORY_DESCRIPTION}) values (?,?)"
-        params = [category.name, category.description]
-        response = self.executeUpdate(query, params)
-        return ResponseModel(
-            dict(
-                response=(p.SUCCESSFUL_CREATE if response["error"] is False else response["data"]), 
-                error=response["error"]
+        try:
+            c = Category(
+                name=category.name,
+                description=category.description
             )
-        ).getResponseBasic()
+
+            db.session.add(c)
+            db.session.commit()
+
+            self.message, self.error = p.SUCCESSFUL_CREATE, False
+        except sqlite3.IntegrityError as err_aql:
+            self.message, self.error = str(err_aql), True
+        except Exception as err:
+            self.message, self.error = str(err), True
+        finally:
+            db.session.close()
+            return ResponseModel(dict(response=self.message, error=self.error)).getResponseBasic()
 
     def update(self, category, category_id):
-        query = f"UPDATE {t.TCATEGORY} SET {t.TCATEGORY_NAME} = ?, {t.TCATEGORY_DESCRIPTION} = ? WHERE {t.TCATEGORY_ID} = ?"
-        params = [category.name, category.description, category_id]
-        response = self.executeUpdate(query, params)
-        return ResponseModel(
-            dict(
-                response=(p.SUCCESSFUL_UPDATE if response["error"] is False else response["data"]), 
-                error=response["error"]
-            )
-        ).getResponseBasic()
+        try:
+            c = self.selectByPK(category_id)
+            c.name = category.name
+            c.description = category.description
+
+            db.session.commit()
+
+            self.message, self.error = p.SUCCESSFUL_UPDATE, False
+        except sqlite3.IntegrityError as err_aql:
+            self.message, self.error = str(err_aql), True
+        except Exception as err:
+            self.message, self.error = str(err), True
+        finally:
+            db.session.close()
+            return ResponseModel(dict(response=self.message, error=self.error)).getResponseBasic()
         
     def delete(self, category_id):
-        query = f"DELETE FROM {t.TCATEGORY} WHERE {t.TCATEGORY_ID} = ?"
-        params = [category_id]
-        response = self.executeUpdate(query, params)
-        return ResponseModel(
-            dict(
-                response=(p.SUCCESSFUL_DELETE if response["error"] is False else response["data"]), 
-                error=response["error"]
-            )
-        ).getResponseBasic()
+        try:
+            c = self.selectByPK(category_id)
+
+            db.session.delete(c)
+            db.session.commit()
+
+            self.message, self.error = p.SUCCESSFUL_DELETE, False
+        except sqlite3.IntegrityError as err_aql:
+            self.message, self.error = str(err_aql), True
+        except Exception as err:
+            self.message, self.error = str(err), True
+        finally:
+            db.session.close()
+            return ResponseModel(dict(response=self.message, error=self.error)).getResponseBasic()
 
     def selectAll(self):
-        query = f"SELECT * FROM {t.TCATEGORY}"
-        response = self.executeQuery(query, [])
-        return ResponseModel(
-            dict( response=response["data"], error=response["error"] )
-        ).getResponseResults()
+        return Category.query.all()
 
     def selectByPK(self, category_id):
-        query = f"SELECT * FROM {t.TCATEGORY} WHERE {t.TCATEGORY_ID} = ?"
-        response = self.executeQueryOne(query, [category_id])
-        return ResponseModel(
-            dict( response=response["data"], error=response["error"] )
-        ).getResponseOneResult()
+        return Category.query.get(category_id)
 
 
-class ProductService(BaseService):
+""" Clase de servicio de productos DB. """
+class ProductService():
     def __init__(self):
         super().__init__()
+        self.message = None
+        self.error = False
 
     def create(self, product):
-        query = f"INSERT INTO {t.TPRODUCT} ({t.TPRODUCT_NAME}, {t.TPRODUCT_STOCK}, {t.TPRODUCT_CATEGORY_ID}) values (?,?,?)"
-        params = [product.name, product.stock, product.category_id]
-        response = self.executeUpdate(query, params)
-        return ResponseModel(
-            dict(
-                response=(p.SUCCESSFUL_CREATE if response["error"] is False else response["data"]), 
-                error=response["error"]
+        try:
+            pd = Product(
+                name=product.name,
+                stock=product.stock,
+                category_id=product.category_id
             )
-        ).getResponseBasic()
+
+            db.session.add(pd)
+            db.session.commit()
+
+            self.message, self.error = p.SUCCESSFUL_CREATE, False
+        except sqlite3.IntegrityError as err_aql:
+            self.message, self.error = str(err_aql), True
+        except Exception as err:
+            self.message, self.error = str(err), True
+        finally:
+            db.session.close()
+            return ResponseModel(dict(response=self.message, error=self.error)).getResponseBasic()
 
     def update(self, product, product_id):
-        query = f"UPDATE {t.TPRODUCT} SET {t.TPRODUCT_NAME} = ?, {t.TPRODUCT_STOCK} = ?, {t.TPRODUCT_CATEGORY_ID} = ? WHERE {t.TPRODUCT_ID} = ?"
-        params = [product.name, product.stock, product.category_id, product_id]
-        response = self.executeUpdate(query, params)
-        return ResponseModel(
-            dict(
-                response=(p.SUCCESSFUL_UPDATE if response["error"] is False else response["data"]), 
-                error=response["error"]
-            )
-        ).getResponseBasic()
+        try:
+            pd = self.selectByPK(product_id)
+            pd.name = product.name
+            pd.stock = product.stock
+            pd.category_id = product.category_id
+
+            db.session.commit()
+
+            self.message, self.error = p.SUCCESSFUL_UPDATE, False
+        except sqlite3.IntegrityError as err_aql:
+            self.message, self.error = str(err_aql), True
+        except Exception as err:
+            self.message, self.error = str(err), True
+        finally:
+            db.session.close()
+            return ResponseModel(dict(response=self.message, error=self.error)).getResponseBasic()
 
     def delete(self, product_id):
-        query = f"DELETE FROM {t.TPRODUCT} WHERE {t.TPRODUCT_ID} = ?"
-        params = [product_id]
-        response = self.executeUpdate(query, params)
-        return ResponseModel(
-            dict(
-                response=(p.SUCCESSFUL_DELETE if response["error"] is False else response["data"]), 
-                error=response["error"]
-            )
-        ).getResponseBasic()
+        try:
+            pd = self.selectByPK(product_id)
+
+            db.session.delete(pd)
+            db.session.commit()
+
+            self.message, self.error = p.SUCCESSFUL_DELETE, False
+        except sqlite3.IntegrityError as err_aql:
+            self.message, self.error = str(err_aql), True
+        except Exception as err:
+            self.message, self.error = str(err), True
+        finally:
+            db.session.close()
+            return ResponseModel(dict(response=self.message, error=self.error)).getResponseBasic()
         
     def selectAll(self):
-        query = f"SELECT * FROM {t.TPRODUCT}"
-        response = self.executeQuery(query, [])
-        return ResponseModel(
-            dict( response=response["data"], error=response["error"] )
-        ).getResponseResults()
+        return Product.query.all()
 
     def selectByPK(self, product_id):
-        query = f"SELECT * FROM {t.TPRODUCT} WHERE {t.TPRODUCT_ID} = ?"
-        response = self.executeQueryOne(query, [product_id])
-        return ResponseModel(
-            dict( response=response["data"], error=response["error"] )
-        ).getResponseOneResult()
+        return Product.query.get(product_id)
 

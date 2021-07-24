@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% import 'macros/macroOperation.html' as macro_operation %}
+{% block title %}
+    {{ super() }}
+    API REST
+{% endblock %}
+{% block styles %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/index/index.css') }}">
+{% endblock %}
+{% block content %}
+
+<h1 class="title has-text-centered is-1 mt-5 mb-0">Documentación API REST - Asperos GEEK</h1>
+
+<div id="menu-api-rest" class="dropdown">
+    <div class="dropdown-trigger">
+        <button class="button is-info is-outlined" aria-haspopup="true" aria-controls="dropdown-menu">
+        <span>Api REST</span>
+        <span class="icon is-small">
+            <i aria-hidden="true">»</i>
+        </span>
+        </button>
+    </div>
+    <div class="dropdown-menu" id="dropdown-menu" role="menu">
+        <div class="dropdown-content">
+            {% for el in nav_data %}
+                <a class="dropdown-item" href="javascript:scroll_to_item('{{ el.id }}')">
+                    <span class="panel-icon">
+                        <i aria-hidden="true">■</i>
+                    </span>
+                    {{ el.name }}
+                </a>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+<section class="section">
+    <hr>
+    {% for elem in data %}
+        {{ macro_operation.render_operation(elem, ("has-custom-background-light" if (loop.index % 2) == 0 else "")) }}
+    {% endfor %}
+</section>
+{% endblock %}
+
+{% block scripts %}
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+{% endblock %}

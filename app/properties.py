@@ -67,8 +67,20 @@ REQUEST_PUT_INVOICE_DETAIL=[1,2,3,4]
 # Usuarios
 USER_FIELD_0={"key": "id", "required": True, "type": "numeric", "min": 1, "max": 11}
 USER_FIELD_1={"key": "username", "required": True, "type": "string", "min": 6, "max": 30}
-USER_FIELD_2={"key": "password", "required": False, "type": "string", "min": 6, "max": 25}
-USER_FIELD_3={"key": "is_admin", "required": False, "type": "string", "min": 1, "max": 1}
+USER_FIELD_2={"key": "password", "required": True, "type": "string", "min": 6, "max": 25}
+USER_FIELD_3={"key": "is_admin", "required": False, "type": "boolean", "min": 1, "max": 1}
 # Usuarios - campos de validación según proceso
 REQUEST_POST_USER=[1,2,3]
 REQUEST_PUT_USER=[1,2,3]
+
+# Log
+LOG_FIELD_0={"key": "secuence_number", "required": True, "type": "string", "min": 1, "max": 12}
+LOG_FIELD_1={"key": "trx_date", "required": True, "type": "string", "min": 8, "max": 8}
+LOG_FIELD_2={"key": "trx_time", "required": True, "type": "string", "min": 7, "max": 7}
+# Log - validación de campos para generar el log 
+REQUEST_LOG=[0,1,2]
+
+# Errores
+ERROR_REQUETS="INFORMACIÓN DE ENTRADA NO VÁLIDA [VERIFIQUE POR FAVOR]"
+ERROR_REQUETS_DATA="NO EXISTE PROPIEDAD 'DATA' [VERIFIQUE POR FAVOR]"
+ERROR_REQUETS_INFO="NO EXISTE PROPIEDAD 'INFO' [VERIFIQUE POR FAVOR]"

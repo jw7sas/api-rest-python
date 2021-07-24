@@ -1,19 +1,23 @@
+# -+- coding: utf-8 -*-
 # imports
-import app.error_handlers
+
+# Modulos de flask
 from flask import Flask
 from flask_jwt import JWT
+
+# Archivos de configuración de la app
 from .routes import * 
 from .config import Config 
 from .jwt import authenticate, identity
-# imports Database
-from app.database import Database
+from app.database import db
+from app.log_routes import log, before_request_api, after_request_api
 
 def create_app():
     """ Método para la creación y la configuración de la App. """
     app = Flask(__name__)
-
+    # Configuración básica
     app.config.from_object(Config)
-
+    # Configuración de vistas
     app = appRoutes(app)
     app = productRoutes(app)
     app = categoryRoutes(app)
@@ -25,8 +29,11 @@ def create_app():
     
     # configuración JWT
     jwt = JWT(app, authenticate, identity)
-
-    # Configuración de errores
-    app.register_blueprint(error_handlers.errors)
+    # Configuración de rutas de errores y validaciones
+    app.register_blueprint(log)
+    app.before_request(before_request_api)
+    app.after_request(after_request_api)
+    # Configuración de la base de datos
+    db.init_app(app)
 
     return app

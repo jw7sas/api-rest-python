@@ -1,0 +1,10 @@
+#menu-api-rest{
+    position: fixed;
+    top: 5px;
+    left: 5px;
+    z-index: 500;
+}
+
+.has-custom-background-light {
+    background-color: #FBFCFC!important;
+}

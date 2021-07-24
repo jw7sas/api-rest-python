@@ -1,2 +1,4 @@
 flask==2.0.1
+flask-sqlalchemy==2.5.1
+marshmallow-sqlalchemy==0.24.1
 Flask-JWT==0.3.2

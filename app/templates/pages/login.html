@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block title %}
+    {{ super() }}
+    Login
+{% endblock %}
+{% block content %}
+    <section class="section is-flex is-justify-content-center">
+        <div class="card " style="width: 350px;">
+            <div class="card-content">
+                <div class="content">
+                    <h1 class="title is-2">Login</h1>
+                    <div class="container">
+                        <form method="POST">
+                            <div class="field">
+                                <label class="label">Username</label>
+                                <div class="control">
+                                  <input class="input" name="username" type="text" autocomplete="off" placeholder="Ingresa tu nombre de usuario">
+                                </div>
+                              </div>
+                              <div class="field">
+                                <label class="label">Password</label>
+                                <div class="control">
+                                  <input class="input" name="password" type="password" autocomplete="off" placeholder="Ingresa tu contraseña">
+                                </div>
+                              </div>
+                              <div class="control">
+                                <button class="button is-primary" type="submit">Login</button>
+                              </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

@@ -1,0 +1,52 @@
+{% macro render_operation(data, background) %}
+    <section class="section " id="{{ data.id }}">
+        <h1 class="title is-2">{{ data.base_title}}</h1>
+        {% for el in data.data %}
+            <div class="container panel is-{{ el.color }}">
+                <p class="panel-heading has-text-centered py-2">
+                    {{ el.title }}
+                </p>
+                <div class="py-5 px-5 {{ background }}">
+                    <div class="columns is-desktop">
+                        <div class="column">
+                            <div class="columns">
+                                <div class="column">
+                                    <p class="mx-5">
+                                    <strong>Base:</strong>
+                                    <br>
+                                    <span class="tag is-info is-light my-2"><strong class="pl-5">Operation:</strong>&nbsp; <small class="pl-3 pr-4">{{ el.operation }}</small> </span>
+                                    <br>
+                                    {% if "optional_operation" in el %}
+                                    <span class="tag is-info is-light my-2"><strong class="pl-5">Optional operation:</strong>&nbsp; <small class="pl-3 pr-4">{{ el.optional_operation }}</small> </span>
+                                    <br>
+                                    {% endif %}
+                                    <span class="tag is-info is-light my-2"><strong class="pl-5">Method:</strong>&nbsp; <small class="pl-3 pr-4">{{ el.method }}</small> </span>
+                                    <br>
+                                    </p>
+    
+                                </div>
+                                <div class="column">
+                                    <p class="mx-5">
+                                    <strong>Headers:</strong>
+                                    <br>
+                                    <span class="tag is-info is-light my-2"><strong class="pl-5">Content-Type:</strong>&nbsp; <small class="pl-3 pr-4">{{ el.content_type }}</small> </span>
+                                    <br>
+                                    <span class="tag is-info is-light my-2"><strong class="pl-5">Authorization:</strong>&nbsp; <small class="pl-3 pr-4">{{ el.authorization }}</small> </span>
+                                    <br>
+                                    </p>
+                                </div>
+                            </div>
+                            <br>
+                            <strong>Sample request:</strong>
+                            <pre class="mt-2"><code>{{ el.sample_request }}</code></pre>
+                        </div>
+                        <div class="column">
+                            <strong>Sample response:</strong>
+                            <pre class="mt-2"><code>{{ el.sample_response }}</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </section>
+{% endmacro %}

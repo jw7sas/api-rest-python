@@ -1,3 +1,23 @@
+# imports
+import socket
+
+""" Clase Model, para el manejo del log de la app. """
+class TransactionLogModel():
+    def __init__(self, args, view, method, user_id):
+        self.secuence_number = args["secuence_number"] if "secuence_number" in args.keys() else None 
+        self.trx_date = args["trx_date"] if "trx_date" in args.keys() else None
+        self.trx_time = args["trx_time"] if "trx_time" in args.keys() else None
+        self.view = view
+        self.method = method
+        self.user_id = user_id
+        self.ip_address = self.getIpAddress()
+
+    def getIpAddress(self):
+        host_name = socket.gethostname()
+        ip_address = socket.gethostbyname(host_name)
+        return f"Ip: [{ip_address}] Hostname: [{host_name}]"
+
+
 """ Clase model, para devolver respuesta de errores. """
 class ResponseModel():
 

@@ -1,0 +1,347 @@
+[
+    {
+        "id": "doc_000",
+        "base_title": "Autenticación y obtención de Token",
+        "data": [
+            {
+                "title": "Autenticarse y obtener token",
+                "operation": "/auth",
+                "method": "POST",
+                "content_type": "application/json",
+                "authorization": null,
+                "color": "info",
+                "sample_request": "{\n    \"username\": \"asperosGeek\",\n    \"password\": \"123Admin\" \n}\n",
+                "sample_response": "{\n    \"access_token\": \"eyJ0eXAiOiJKV1QiL...\"\n}\n"
+            }
+        ]
+    },
+    {
+        "id": "doc_001",
+        "base_title": "Gestión de Categorías",
+        "data": [
+            {
+                "title": "Consultar categoría(s)",
+                "operation": "/categories",
+                "optional_operation": "/categories/{id}",
+                "method": "GET",
+                "content_type": "application/json",
+                "authorization": null,
+                "color": "primary",
+                "sample_request": null,
+                "sample_response": "{\n    \"info\": {\n        \"count\": 1\n    },\n    \"results\": [\n        {\n            \"description\": null,\n            \"id\": 1,\n            \"name\": \"Electrodomesticos\"\n        }\n    ]\n}\n"
+            },
+            {
+                "title": "Crear categoría",
+                "operation": "/categories",
+                "method": "POST",
+                "content_type": "application/json",
+                "authorization": "JWT token",
+                "color": "info",
+                "sample_request": "{\n    \"info\": {\n        \"secuence_number\": \"123456789012\",\n        \"trx_date\": \"20210721\",\n        \"trx_time\": \"0545123\"\n    },\n    \"data\": {\n        \"name\": \"Nombre de categoría\",\n       \"description\": \"Descripción de categoría\" \n    }\n}\n",
+                "sample_response": "{\n    \"error\": null,\n    \"errorMessage\": null,\n    \"responseCode\": \"OK\",\n    \"responseMessage\": \"Registro Creado Correctamente\",\n    \"sequenceNumber\": \"123456789012\"\n}\n"
+            },
+            {
+                "title": "Actualizar categoría",
+                "operation": "/categories/{id}",
+                "method": "PUT",
+                "content_type": "application/json",
+                "authorization": "JWT token",
+                "color": "warning",
+                "sample_request": "{\n    \"info\": {\n        \"secuence_number\": \"123456789012\",\n        \"trx_date\": \"20210721\",\n        \"trx_time\": \"0545123\"\n    },\n    \"data\": {\n        \"name\": \"Nombre de categoría\",\n       \"description\": \"Descripción de categoría\" \n    }\n}\n",
+                "sample_response": "{\n    \"error\": null,\n    \"errorMessage\": null,\n    \"responseCode\": \"OK\",\n    \"responseMessage\": \"Registro Actualizado Correctamente\",\n    \"sequenceNumber\": \"123456789012\"\n}\n"
+            },
+            {
+                "title": "Eliminar categoría",
+                "operation": "/categories/{id}",
+                "method": "DELETE",
+                "content_type": "application/json",
+                "authorization": "JWT token",
+                "color": "danger",
+                "sample_request": null,
+                "sample_response": "{\n    \"error\": null,\n    \"errorMessage\": null,\n    \"responseCode\": \"OK\",\n    \"responseMessage\": \"Registro Eliminado Correctamente\",\n    \"sequenceNumber\": null\n}\n"
+            }
+        ]
+    },
+    {
+        "id": "doc_002",
+        "base_title": "Gestión de Productos",
+        "data": [
+            {
+                "title": "Consultar producto(s)",
+                "operation": "/products",
+                "optional_operation": "/products/{id}",
+                "method": "GET",
+                "content_type": "application/json",
+                "authorization": null,
+                "color": "primary",
+                "sample_request": null,
+                "sample_response": "{\n    \"info\": {\n        \"count\": 3\n    },\n    \"results\": [\n        {\n            \"category\": {\n                \"description\": null,\n                \"id\": 1,\n                \"name\": \"Electrodomesticos\"\n            },\n            \"category_id\": 1,\n            \"id\": 1,\n            \"name\": \"Celular S10\",\n            \"stock\": 2\n        },\n        {\n            \"category\": {\n                \"description\": null,\n                \"id\": 1,\n                \"name\": \"Electrodomesticos\"\n            },\n            \"category_id\": 1,\n            \"id\": 2,\n            \"name\": \"Nevera\",\n            \"stock\": 5\n        },\n        {\n            \"category\": {\n                \"description\": null,\n                \"id\": 1,\n                \"name\": \"Electrodomesticos\"\n            },\n            \"category_id\": 1,\n            \"id\": 3,\n            \"name\": \"Televisor\",\n            \"stock\": 20\n        }\n    ]\n}\n"
+            },
+            {
+                "title": "Crear producto",
+                "operation": "/products",
+                "method": "POST",
+                "content_type": "application/json",
+                "authorization": "JWT token",
+                "color": "info",
+                "sample_request": "{\n    \"info\": {\n        \"secuence_number\": \"123456789012\",\n        \"trx_date\": \"20210721\",\n        \"trx_time\": \"0545123\"\n    },\n    \"data\": {\n        \"name\": \"Nombre del producto\", \n        \"stock\": 1, \n        \"category_id\": 1\n    }\n}\n",
+                "sample_response": "{\n    \"error\": null,\n    \"errorMessage\": null,\n    \"responseCode\": \"OK\",\n    \"responseMessage\": \"Registro Creado Correctamente\",\n    \"sequenceNumber\": \"123456789012\"\n}\n"
+            },
+            {
+                "title": "Actualizar producto",
+                "operation": "/products/{id}",
+                "method": "PUT",
+                "content_type": "application/json",
+                "authorization": "JWT token",
+                "color": "warning",
+                "sample_request": "{\n    \"info\": {\n        \"secuence_number\": \"123456789012\",\n        \"trx_date\": \"20210721\",\n        \"trx_time\": \"0545123\"\n    },\n    \"data\": {\n        \"name\": \"Nombre del producto\", \n        \"stock\": 1, \n        \"category_id\": 1\n    }\n}\n",
+                "sample_response": "{\n    \"error\": null,\n    \"errorMessage\": null,\n    \"responseCode\": \"OK\",\n    \"responseMessage\": \"Registro Actualizado Correctamente\",\n    \"sequenceNumber\": \"123456789012\"\n}\n"
+            },
+            {
+                "title": "Eliminar producto",
+                "operation": "/products/{id}",
+                "method": "DELETE",
+                "content_type": "application/json",
+                "authorization": "JWT token",
+                "color": "danger",
+                "sample_request": null,
+                "sample_response": "{\n    \"error\": null,\n    \"errorMessage\": null,\n    \"responseCode\": \"OK\",\n    \"responseMessage\": \"Registro Eliminado Correctamente\",\n    \"sequenceNumber\": null\n}\n"
+            }
+        ]
+    },
+    {
+        "id": "doc_003",
+        "base_title": "Gestión de Clientes",
+        "data": [
+            {
+                "title": "Consultar cliente(s)",
+                "operation": "/clients",
+                "optional_operation": "/clients/{id}",
+                "method": "GET",
+                "content_type": "application/json",
+                "authorization": "JWT token",
+                "color": "primary",
+                "sample_request": null,
+                "sample_response": "{\n    \"info\": {\n        \"count\": 1\n    },\n    \"results\": [\n        {\n            \"address\": \"Carrera 7 Este\",\n            \"date_of_birth\": \"19991022\",\n            \"document\": \"101010202020\",\n            \"email\": \"asGeek@example.com\",\n            \"id\": 1,\n            \"lastname\": \"Geek\",\n            \"name\": \"Asperos\",\n            \"phones\": \"3125665656-3214578489\"\n        }\n    ]\n}\n"
+            },
+            {
+                "title": "Crear cliente",
+                "operation": "/clients",
+                "method": "POST",
+                "content_type": "application/json",
+                "authorization": "JWT token",
+                "color": "info",
+                "sample_request": "{\n    \"info\": {\n        \"secuence_number\": \"123456789012\",\n        \"trx_date\": \"20210721\",\n        \"trx_time\": \"0545123\"\n    },\n    \"data\": {\n        \"document\": \"1010251223\",\n        \"name\": \"Asperos\",\n        \"lastname\": \"Geek\",\n        \"address\": \"Carrera 7 Este\",\n        \"date_of_birth\": \"19991022\",\n        \"phones\": \"3125665656-3214578489\",\n        \"email\": \"asperos_geek@example.com\"\n    }\n}\n",
+                "sample_response": "{\n    \"error\": null,\n    \"errorMessage\": null,\n    \"responseCode\": \"OK\",\n    \"responseMessage\": \"Registro Creado Correctamente\",\n    \"sequenceNumber\": \"123456789012\"\n}\n"
+            },
+            {
+                "title": "Actualizar cliente",
+                "operation": "/clients/{id}",
+                "method": "PUT",
+                "content_type": "application/json",
+                "authorization": "JWT token",
+                "color": "warning",
+                "sample_request": "{\n    \"info\": {\n        \"secuence_number\": \"123456789012\",\n        \"trx_date\": \"20210721\",\n        \"trx_time\": \"0545123\"\n    },\n    \"data\": {\n        \"document\": \"1010251223\",\n        \"name\": \"Asperos\",\n        \"lastname\": \"Geek\",\n        \"address\": \"Carrera 7 Este\",\n        \"date_of_birth\": \"19991022\",\n        \"phones\": \"3125665656-3214578489\",\n        \"email\": \"asperos_geek@example.com\"\n    }\n}\n",
+                "sample_response": "{\n    \"error\": null,\n    \"errorMessage\": null,\n    \"responseCode\": \"OK\",\n    \"responseMessage\": \"Registro Actualizado Correctamente\",\n    \"sequenceNumber\": \"123456789012\"\n}\n"
+            },
+            {
+                "title": "Eliminar cliente",
+                "operation": "/clients/{id}",
+                "method": "DELETE",
+                "content_type": "application/json",
+                "authorization": "JWT token",
+                "color": "danger",
+                "sample_request": null,
+                "sample_response": "{\n    \"error\": null,\n    \"errorMessage\": null,\n    \"responseCode\": \"OK\",\n    \"responseMessage\": \"Registro Eliminado Correctamente\",\n    \"sequenceNumber\": null\n}\n"
+            }
+        ]
+    },
+    {
+        "id": "doc_004",
+        "base_title": "Gestión de Tipos de pagos",
+        "data": [
+            {
+                "title": "Consultar Tipo(s) de pago(s)",
+                "operation": "/type/payments",
+                "optional_operation": "/type/payments/{id}",
+                "method": "GET",
+                "content_type": "application/json",
+                "authorization": null,
+                "color": "primary",
+                "sample_request": null,
+                "sample_response": "{\n    \"info\": {\n        \"count\": 2\n    },\n    \"results\": [\n        {\n            \"id\": 1,\n            \"name\": \"Tarjeta Crédito\",\n            \"other_details\": null\n        },\n        {\n            \"id\": 2,\n            \"name\": \"Efectivo\",\n            \"other_details\": null\n        }\n    ]\n}\n"
+            },
+            {
+                "title": "Crear Tipo de pago",
+                "operation": "/type/payments",
+                "method": "POST",
+                "content_type": "application/json",
+                "authorization": "JWT token",
+                "color": "info",
+                "sample_request": "{\n    \"info\": {\n        \"secuence_number\": \"123456789012\",\n        \"trx_date\": \"20210721\",\n        \"trx_time\": \"0545123\"\n    },\n    \"data\": {\n        \"name\": \"Efectivo\",\n        \"other_details\": null\n    }\n}\n\n",
+                "sample_response": "{\n    \"error\": null,\n    \"errorMessage\": null,\n    \"responseCode\": \"OK\",\n    \"responseMessage\": \"Registro Creado Correctamente\",\n    \"sequenceNumber\": \"123456789012\"\n}\n"
+            },
+            {
+                "title": "Actualizar Tipo de pago",
+                "operation": "/type/payments/{id}",
+                "method": "PUT",
+                "content_type": "application/json",
+                "authorization": "JWT token",
+                "color": "warning",
+                "sample_request": "{\n    \"info\": {\n        \"secuence_number\": \"123456789012\",\n        \"trx_date\": \"20210721\",\n        \"trx_time\": \"0545123\"\n    },\n    \"data\": {\n        \"name\": \"Efectivo\",\n        \"other_details\": null\n    }\n}\n\n",
+                "sample_response": "{\n    \"error\": null,\n    \"errorMessage\": null,\n    \"responseCode\": \"OK\",\n    \"responseMessage\": \"Registro Actualizado Correctamente\",\n    \"sequenceNumber\": \"123456789012\"\n}\n"
+            },
+            {
+                "title": "Eliminar Tipo de pago",
+                "operation": "/type/payments/{id}",
+                "method": "DELETE",
+                "content_type": "application/json",
+                "authorization": "JWT token",
+                "color": "danger",
+                "sample_request": null,
+                "sample_response": "{\n    \"error\": null,\n    \"errorMessage\": null,\n    \"responseCode\": \"OK\",\n    \"responseMessage\": \"Registro Eliminado Correctamente\",\n    \"sequenceNumber\": null\n}\n"
+            }
+        ]
+    },
+    {
+        "id": "doc_005",
+        "base_title": "Gestión de Facturas",
+        "data": [
+            {
+                "title": "Consultar Factura(s)",
+                "operation": "/invoices",
+                "optional_operation": "/invoices/{id}",
+                "method": "GET",
+                "content_type": "application/json",
+                "authorization": "JWT token",
+                "color": "primary",
+                "sample_request": null,
+                "sample_response": "{\n    \"info\": {\n        \"count\": 1\n    },\n    \"results\": [\n        {\n            \"client\": {\n                \"address\": \"Carrera 7 Este\",\n                \"date_of_birth\": \"19991022\",\n                \"document\": \"101010202020\",\n                \"email\": \"asGeek@example.com\",\n                \"id\": 1,\n                \"lastname\": \"Geek\",\n                \"name\": \"Asperos\",\n                \"phones\": \"3125665656-3214578489\"\n            },\n            \"client_id\": 1,\n            \"code\": \"0a226b2f-ebfe-11eb-9318-548ca0548191\",\n            \"id\": 1,\n            \"typePayment\": {\n                \"id\": 1,\n                \"name\": \"Tarjeta Crédito\",\n                \"other_details\": null\n            },\n            \"type_of_payment_id\": 1\n        }\n    ]\n}\n"
+            },
+            {
+                "title": "Crear Factura",
+                "operation": "/invoices",
+                "method": "POST",
+                "content_type": "application/json",
+                "authorization": "JWT token",
+                "color": "info",
+                "sample_request": "\n{\n    \"info\": {\n        \"secuence_number\": \"123456789012\",\n        \"trx_date\": \"20210721\",\n        \"trx_time\": \"0545123\"\n    },\n    \"data\": {\n        \"client_id\": 1,\n        \"type_of_payment_id\": 1\n    }\n}\n",
+                "sample_response": "{\n    \"error\": null,\n    \"errorMessage\": null,\n    \"responseCode\": \"OK\",\n    \"responseMessage\": \"Registro Creado Correctamente\",\n    \"sequenceNumber\": \"123456789012\"\n}\n"
+            },
+            {
+                "title": "Actualizar Factura",
+                "operation": "/invoices/{id}",
+                "method": "PUT",
+                "content_type": "application/json",
+                "authorization": "JWT token",
+                "color": "warning",
+                "sample_request": "\n{\n    \"info\": {\n        \"secuence_number\": \"123456789012\",\n        \"trx_date\": \"20210721\",\n        \"trx_time\": \"0545123\"\n    },\n    \"data\": {\n        \"client_id\": 1,\n        \"type_of_payment_id\": 1\n    }\n}\n",
+                "sample_response": "{\n    \"error\": null,\n    \"errorMessage\": null,\n    \"responseCode\": \"OK\",\n    \"responseMessage\": \"Registro Actualizado Correctamente\",\n    \"sequenceNumber\": \"123456789012\"\n}\n"
+            },
+            {
+                "title": "Eliminar Factura",
+                "operation": "/invoices/{id}",
+                "method": "DELETE",
+                "content_type": "application/json",
+                "authorization": "JWT token",
+                "color": "danger",
+                "sample_request": null,
+                "sample_response": "{\n    \"error\": null,\n    \"errorMessage\": null,\n    \"responseCode\": \"OK\",\n    \"responseMessage\": \"Registro Eliminado Correctamente\",\n    \"sequenceNumber\": null\n}\n"
+            }
+        ]
+    },
+    {
+        "id": "doc_006",
+        "base_title": "Gestión de Detalle de Facturas",
+        "data": [
+            {
+                "title": "Consultar Detalle de Factura(s)",
+                "operation": "/invoice/details",
+                "optional_operation": "/invoice/details/{id}",
+                "method": "GET",
+                "content_type": "application/json",
+                "authorization": "JWT token",
+                "color": "primary",
+                "sample_request": null,
+                "sample_response": "{\n    \"info\": {\n        \"count\": 3\n    },\n    \"results\": [\n        {\n            \"id\": 1,\n            \"invoice\": {\n                \"client\": {\n                    \"address\": \"Carrera 7 Este\",\n                    \"date_of_birth\": \"19991022\",\n                    \"document\": \"101010202020\",\n                    \"email\": \"asGeek@example.com\",\n                    \"id\": 1,\n                    \"lastname\": \"Geek\",\n                    \"name\": \"Asperos\",\n                    \"phones\": \"3125665656-3214578489\"\n                },\n                \"client_id\": 1,\n                \"code\": \"0a226b2f-ebfe-11eb-9318-548ca0548191\",\n                \"id\": 1,\n                \"typePayment\": {\n                    \"id\": 1,\n                    \"name\": \"Tarjeta Crédito\",\n                    \"other_details\": null\n                },\n                \"type_of_payment_id\": 1\n            },\n            \"invoice_id\": 1,\n            \"price\": 2700000.0,\n            \"product\": {\n                \"category\": {\n                    \"description\": null,\n                    \"id\": 1,\n                    \"name\": \"Electrodomesticos\"\n                },\n                \"category_id\": 1,\n                \"id\": 1,\n                \"name\": \"Celular S10\",\n                \"stock\": 2\n            },\n            \"product_id\": 1,\n            \"units\": 1\n        },\n        {\n            \"id\": 2,\n            \"invoice\": {\n                \"client\": {\n                    \"address\": \"Carrera 7 Este\",\n                    \"date_of_birth\": \"19991022\",\n                    \"document\": \"101010202020\",\n                    \"email\": \"asGeek@example.com\",\n                    \"id\": 1,\n                    \"lastname\": \"Geek\",\n                    \"name\": \"Asperos\",\n                    \"phones\": \"3125665656-3214578489\"\n                },\n                \"client_id\": 1,\n                \"code\": \"0a226b2f-ebfe-11eb-9318-548ca0548191\",\n                \"id\": 1,\n                \"typePayment\": {\n                    \"id\": 1,\n                    \"name\": \"Tarjeta Crédito\",\n                    \"other_details\": null\n                },\n                \"type_of_payment_id\": 1\n            },\n            \"invoice_id\": 1,\n            \"price\": 2100000.0,\n            \"product\": {\n                \"category\": {\n                    \"description\": null,\n                    \"id\": 1,\n                    \"name\": \"Electrodomesticos\"\n                },\n                \"category_id\": 1,\n                \"id\": 2,\n                \"name\": \"Nevera\",\n                \"stock\": 5\n            },\n            \"product_id\": 2,\n            \"units\": 1\n        },\n        {\n            \"id\": 3,\n            \"invoice\": {\n                \"client\": {\n                    \"address\": \"Carrera 7 Este\",\n                    \"date_of_birth\": \"19991022\",\n                    \"document\": \"101010202020\",\n                    \"email\": \"asGeek@example.com\",\n                    \"id\": 1,\n                    \"lastname\": \"Geek\",\n                    \"name\": \"Asperos\",\n                    \"phones\": \"3125665656-3214578489\"\n                },\n                \"client_id\": 1,\n                \"code\": \"0a226b2f-ebfe-11eb-9318-548ca0548191\",\n                \"id\": 1,\n                \"typePayment\": {\n                    \"id\": 1,\n                    \"name\": \"Tarjeta Crédito\",\n                    \"other_details\": null\n                },\n                \"type_of_payment_id\": 1\n            },\n            \"invoice_id\": 1,\n            \"price\": 1500000.0,\n            \"product\": {\n                \"category\": {\n                    \"description\": null,\n                    \"id\": 1,\n                    \"name\": \"Electrodomesticos\"\n                },\n                \"category_id\": 1,\n                \"id\": 3,\n                \"name\": \"Televisor\",\n                \"stock\": 20\n            },\n            \"product_id\": 3,\n            \"units\": 2\n        }\n    ]\n}\n"
+            },
+            {
+                "title": "Crear Detalle de Factura",
+                "operation": "/invoice/details",
+                "method": "POST",
+                "content_type": "application/json",
+                "authorization": "JWT token",
+                "color": "info",
+                "sample_request": "{\n    \"info\": {\n        \"secuence_number\": \"123456789012\",\n        \"trx_date\": \"20210721\",\n        \"trx_time\": \"0545123\"\n    },\n    \"data\": {\n        \"invoice_id\": 1,\n        \"product_id\": 1,\n        \"units\": 10,\n        \"price\": \"15000\"\n    }\n}\n",
+                "sample_response": "{\n    \"error\": null,\n    \"errorMessage\": null,\n    \"responseCode\": \"OK\",\n    \"responseMessage\": \"Registro Creado Correctamente\",\n    \"sequenceNumber\": \"123456789012\"\n}\n"
+            },
+            {
+                "title": "Actualizar Detalle de Factura",
+                "operation": "/invoice/details/{id}",
+                "method": "PUT",
+                "content_type": "application/json",
+                "authorization": "JWT token",
+                "color": "warning",
+                "sample_request": "{\n    \"info\": {\n        \"secuence_number\": \"123456789012\",\n        \"trx_date\": \"20210721\",\n        \"trx_time\": \"0545123\"\n    },\n    \"data\": {\n        \"invoice_id\": 1,\n        \"product_id\": 1,\n        \"units\": 10,\n        \"price\": \"15000\"\n    }\n}\n",
+                "sample_response": "{\n    \"error\": null,\n    \"errorMessage\": null,\n    \"responseCode\": \"OK\",\n    \"responseMessage\": \"Registro Actualizado Correctamente\",\n    \"sequenceNumber\": \"123456789012\"\n}\n"
+            },
+            {
+                "title": "Eliminar Detalle de Factura",
+                "operation": "/invoice/details/{id}",
+                "method": "DELETE",
+                "content_type": "application/json",
+                "authorization": "JWT token",
+                "color": "danger",
+                "sample_request": null,
+                "sample_response": "{\n    \"error\": null,\n    \"errorMessage\": null,\n    \"responseCode\": \"OK\",\n    \"responseMessage\": \"Registro Eliminado Correctamente\",\n    \"sequenceNumber\": null\n}\n"
+            }
+        ]
+    },
+    {
+        "id": "doc_007",
+        "base_title": "Gestión de Usuarios",
+        "data": [
+            {
+                "title": "Consultar Usuario(s)",
+                "operation": "/users",
+                "optional_operation": "/users/{id}",
+                "method": "GET",
+                "content_type": "application/json",
+                "authorization": "JWT token",
+                "color": "primary",
+                "sample_request": null,
+                "sample_response": "{\n    \"info\": {\n        \"count\": 1\n    },\n    \"results\": [\n        {\n            \"id\": 1,\n            \"is_admin\": true,\n            \"username\": \"asperosGeek\"\n        }\n    ]\n}\n"
+            },
+            {
+                "title": "Crear Usuario",
+                "operation": "/users",
+                "method": "POST",
+                "content_type": "application/json",
+                "authorization": "JWT token",
+                "color": "info",
+                "sample_request": "{\n    \"info\": {\n        \"secuence_number\": \"123456789012\",\n        \"trx_date\": \"20210721\",\n        \"trx_time\": \"0545123\"\n    },\n    \"data\": {\n       \"username\": \"jw7sas\",\n       \"password\": \"123Admin\",\n       \"is_admin\": false \n    }\n}\n",
+                "sample_response": "{\n    \"error\": null,\n    \"errorMessage\": null,\n    \"responseCode\": \"OK\",\n    \"responseMessage\": \"Registro Creado Correctamente\",\n    \"sequenceNumber\": \"123456789012\"\n}\n"
+            },
+            {
+                "title": "Actualizar Usuario",
+                "operation": "/users/{id}",
+                "method": "PUT",
+                "content_type": "application/json",
+                "authorization": "JWT token",
+                "color": "warning",
+                "sample_request": "{\n    \"info\": {\n        \"secuence_number\": \"123456789012\",\n        \"trx_date\": \"20210721\",\n        \"trx_time\": \"0545123\"\n    },\n    \"data\": {\n       \"username\": \"jw7sas\",\n       \"password\": \"123Admin\",\n       \"is_admin\": false \n    }\n}\n",
+                "sample_response": "{\n    \"error\": null,\n    \"errorMessage\": null,\n    \"responseCode\": \"OK\",\n    \"responseMessage\": \"Registro Actualizado Correctamente\",\n    \"sequenceNumber\": \"123456789012\"\n}\n"
+            },
+            {
+                "title": "Eliminar Usuario",
+                "operation": "/users/{id}",
+                "method": "DELETE",
+                "content_type": "application/json",
+                "authorization": "JWT token",
+                "color": "danger",
+                "sample_request": null,
+                "sample_response": "{\n    \"error\": null,\n    \"errorMessage\": null,\n    \"responseCode\": \"OK\",\n    \"responseMessage\": \"Registro Eliminado Correctamente\",\n    \"sequenceNumber\": null\n}\n"
+            }
+        ]
+    }
+]

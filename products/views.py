@@ -3,13 +3,14 @@ import json
 from flask import request, jsonify
 from flask_jwt import jwt_required
 from flask.views import MethodView
-from products.models import ProductModel, CategoryModel
+# Modulos de app
+from app.models import ResponseModel
+from app.validators import validate_json_rest, pre_request_log
+# Modulo de products
+from products.models import CategoryModel, ProductModel
 from products.services import CategoryService, ProductService
-from app.validators import validate_json_rest
+from products.serializer import CategorySchema, ProductSchema
 
-
-from inspect import getmembers
-from pprint import pprint
 """ Clase API de productos. """
 class ProductView(MethodView):
     def __init__(self):
@@ -20,17 +21,22 @@ class ProductView(MethodView):
         if product_id is None:
             # retornar el listado de productos
             serv = ProductService()
-            response = serv.selectAll()
-            response["info"]["count"] = len(response["results"])
+            results = serv.selectAll()
+            schema = ProductSchema()
+            results = [schema.dump(c) for c in results]
+            response = ResponseModel({"response": results, "error": False}).getResponseResults()
+            response["info"]["count"] = len(results)
             return jsonify(response)
         else:
             # retornar un producto especifico
             serv = ProductService()
             response = serv.selectByPK(product_id)
+            response = ProductSchema().dump(response)
             return jsonify(response)
 
     @jwt_required()
     @validate_json_rest
+    @pre_request_log
     def post(self):
         # crear un producto
         productJson = json.loads(request.data)
@@ -41,6 +47,7 @@ class ProductView(MethodView):
         return jsonify(response)
     
     @jwt_required()
+    @pre_request_log
     def delete(self, product_id):
         # eliminar un producto
         serv = ProductService()
@@ -49,6 +56,7 @@ class ProductView(MethodView):
     
     @jwt_required()
     @validate_json_rest
+    @pre_request_log
     def put(self, product_id):
         # actualizar un producto
         productJson = json.loads(request.data)
@@ -70,17 +78,22 @@ class CategoryView(MethodView):
         if category_id is None:
             # retornar el listado de categorias
             serv = CategoryService()
-            response = serv.selectAll()
-            response["info"]["count"] = len(response["results"])
+            results = serv.selectAll()
+            schema = CategorySchema()
+            results = [schema.dump(c) for c in results]
+            response = ResponseModel({"response": results, "error": False}).getResponseResults()
+            response["info"]["count"] = len(results)
             return jsonify(response)
         else:
             # retornar un categoria especifico
             serv = CategoryService()
             response = serv.selectByPK(category_id)
+            response = CategorySchema().dump(response)
             return jsonify(response)
     
     @jwt_required()
     @validate_json_rest
+    @pre_request_log
     def post(self):
         # crear un categoria
         categoryJson = json.loads(request.data)
@@ -91,6 +104,7 @@ class CategoryView(MethodView):
         return jsonify(response)
     
     @jwt_required()
+    @pre_request_log
     def delete(self, category_id):
         # eliminar un categoria
         serv = CategoryService()
@@ -99,6 +113,7 @@ class CategoryView(MethodView):
     
     @jwt_required()
     @validate_json_rest
+    @pre_request_log
     def put(self, category_id):
         # actualizar un categoria
         categoryJson = json.loads(request.data)
